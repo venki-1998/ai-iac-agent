@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/venki-1998/AIDevOps.git'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                sh 'terraform plan -var-file="your_values_file.tfvars"' // replace "your_values_file.tfvars" with your actual values file
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                sh 'terraform apply -auto-approve -var-file="your_values_file.tfvars"' // replace "your_values_file.tfvars" with your actual values file
+            }
+        }
+    }
+}
